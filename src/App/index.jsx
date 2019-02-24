@@ -1,11 +1,14 @@
 import React, { useReducer } from "react";
-import CKeditor from "react-ckeditor-component";
+import CKEditor from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { editorConfig } from "./editorConfig";
 
 export default function App() {
   const [{ title, text }, dispatch] = useReducer(reducer, {
     title: "Titre",
     text: "Texte"
   });
+
   return (
     <div>
       <h1>{title}</h1>
@@ -19,12 +22,14 @@ export default function App() {
             }
           />
         </div>
-        <CKeditor
-          activeClass="p5"
-          content={text}
-          events={{
-            change: e => dispatch({ type: "AddText", text: e.editor.getData() })
-          }}
+        <CKEditor
+          editor={ClassicEditor}
+          onInit={editor => {}}
+          config={editorConfig}
+          data={text}
+          onChange={(event, editor) =>
+            dispatch({ type: "AddText", text: editor.getData() })
+          }
         />
       </form>
     </div>
