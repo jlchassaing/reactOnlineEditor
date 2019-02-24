@@ -1,2 +1,0 @@
-# reactOnlineEditor
-Created with CodeSandbox
