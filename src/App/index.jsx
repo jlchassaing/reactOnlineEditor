@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { editorConfig } from "./editorConfig";
+import { Editor, Input } from "./style";
 
 export default function App() {
   const [{ title, text }, dispatch] = useReducer(reducer, {
@@ -10,12 +11,12 @@ export default function App() {
   });
 
   return (
-    <div>
+    <Editor>
       <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{ __html: text }} />
       <form>
         <div>
-          <input
+          <Input
             type="text"
             onChange={e =>
               dispatch({ type: "AddTitle", title: e.target.value })
@@ -32,7 +33,7 @@ export default function App() {
           }
         />
       </form>
-    </div>
+    </Editor>
   );
 }
 
