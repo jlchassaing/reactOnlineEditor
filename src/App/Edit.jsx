@@ -2,9 +2,9 @@ import React, { useReducer } from "react";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { editorConfig } from "./editorConfig";
-import { Editor, Input } from "./style";
+import { Editor, Input, Button } from "./style";
 
-export default function Edit(action = () => {}) {
+export default function Edit({ action }) {
   const [{ title, text }, dispatch] = useReducer(reducer, {
     title: "Titre",
     text: "Texte"
@@ -14,7 +14,7 @@ export default function Edit(action = () => {}) {
     <Editor>
       <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{ __html: text }} />
-      <form>
+      <form onSubmit={action({ title, text })}>
         <div>
           <Input
             type="text"
@@ -33,9 +33,7 @@ export default function Edit(action = () => {}) {
             dispatch({ type: "AddText", text: editor.getData() })
           }
         />
-        <button type="submit" onSubmit={action({ title, text })}>
-          Save
-        </button>
+        <Button type="submit">Save</Button>
       </form>
     </Editor>
   );
