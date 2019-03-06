@@ -4,17 +4,18 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { editorConfig } from "./editorConfig";
 import { Editor, Input, Button } from "./style";
 
-export default function Edit({ action }) {
-  const [{ title, text }, dispatch] = useReducer(reducer, {
-    title: "Titre",
-    text: "Texte"
-  });
+export default function Edit({
+  id = 0,
+  post = { title: "", text: "" },
+  action
+}) {
+  const [{ title, text }, dispatch] = useReducer(reducer, post);
 
   return (
     <Editor>
-      <h1>{title}</h1>
+      <h2>{title}</h2>
       <div dangerouslySetInnerHTML={{ __html: text }} />
-      <form onSubmit={action({ title, text })}>
+      <form onSubmit={action({ id, title, text })}>
         <div>
           <Input
             type="text"
